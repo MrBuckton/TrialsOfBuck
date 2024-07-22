@@ -22,6 +22,9 @@ public class Main {
             System.out.println("13. Calcular o salário líquido após descontos de impostos");
             System.out.println("14. Calcular a quantidade de latas de tinta necessárias por M² e o custo total");
             System.out.println("15. Calcular a quantidade de latas e galões de tinta necessários por M² e o custo total");
+            System.out.println("16. Descobrir qual o maior número dentre os dois digitados");
+            System.out.println("17. Este número é positivo ou negativo?");
+
             System.out.println("0.  Sair");
 
             int escolha = scanner.nextInt();
@@ -71,6 +74,12 @@ public class Main {
                     break;
                 case 15:
                     calculadoraDeLatasDeTintaEgalao(scanner);
+                    break;
+                case 16:
+                    oMaiorValorDeDois (scanner);
+                    break;
+                case 17:
+                    positivoOuNegativo (scanner);
                     break;
                 case 0:
                     continuar = false;
@@ -308,7 +317,7 @@ public class Main {
 //
 //Informe ao usuário a quantidades de latas de tinta a serem compradas e o preço total.
 
-    public static void calculadoraDeLatasDeTinta (Scanner scanner) {
+    public static void calculadoraDeLatasDeTinta(Scanner scanner) {
 
         //informações do problema
         final double COBERTURA_POR_LITRO = 3.0; // 1 litro para cada 3 metros quadrados
@@ -350,7 +359,7 @@ public class Main {
     //    Acrescente 10% de folga e sempre arredonde os valores para cima,
     //    isto é, considere latas cheias.
 
-    public static void calculadoraDeLatasDeTintaEgalao (Scanner scanner) {
+    public static void calculadoraDeLatasDeTintaEgalao(Scanner scanner) {
 
         // Informações do problema
         final double COBERTURA_POR_LITRO = 6.0; // 1 litro para cada 6 metros quadrados
@@ -370,7 +379,7 @@ public class Main {
         double litrosNecessarios = areaComFolga / COBERTURA_POR_LITRO;
 
         // Situação A: Comprar Apenas latas
-        int latasNecessarias = (int) Math.ceil(litrosNecessarios / TAMANHO_LATA);
+        int latasNecessarias = (int) Math.ceil(litrosNecessarios / TAMANHO_LATA); // Math.ceil retorna o menor inteiro maior ou igual o número fornecido
         double precoLatas = latasNecessarias * PRECO_LATA;
 
         // Situação B: Comprar apenas galões
@@ -380,22 +389,41 @@ public class Main {
         // Situação C: Misturando latas e galões pra ter um custo menor
         int melhorLatas = 0;
         int melhorGaloes = 0;
-        double menorPreco = Double.MAX_VALUE;
+        double menorPreco = Double.MAX_VALUE; //Double.MAX_VALUE é um tipo de "double" que o valor é muito alto.
+        //Foi melhor usar pra definir limites superiores em calculos e evitar estouros de valor.
 
         for (int latas = 0; latas <= (int) Math.ceil(litrosNecessarios / TAMANHO_LATA); latas++) {
+            //O loop "for" é usado pra repetir um blodo de código X vezes.
+            //INICIALIZAÇÃO: a variável "latas" começa em 0.
+            //CONDIÇÃO: (int latas = 0; latas <= (int) Math.ceil(litrosNecessarios / TAMANHO_LATA);.
+            //O loop continua enquanto "latas" for menor ou igual o resultado do "Math.ceil".
+            //ATUALIZAÇÃO: (latas++) após cada iteração, a variável "latas" é incrementada em 1. (folga)
+            //RESUMO: O loop é executado de 0 até o número arredondado de latas necessárias, incluindo esse número.
+            //É usado para processar ou realizar ações para cada lata necessária,
+            //garantindo que todas as latas sejam consideradas, mesmo se a divisão não resultar em um número inteiro exato.
+
             double litrosRestantes = litrosNecessarios - (latas * TAMANHO_LATA);
+            //Essa variável subtrai o volume coberto pelas latas d ovolume total necessário pra encontrar quantos
+            //litros ainda precisam ser cobertos com galões.
+
             int galoes = (int) Math.ceil(litrosRestantes / TAMANHO_GALAO);
+            //Essa variável teremina o número de galões necessários pra cobrir os litros restantes, arredondando eles pra cima.
 
             if (galoes < 0) {
                 continue; // Ignora essa iteração se a quantidade de galões for negativa
             }
+            //Aqui se ignora a iteração se o número de galões calculado for negativo,
+            //o que pode ocorrer se não houver litros restantes.
 
             double preco = (latas * PRECO_LATA) + (galoes * PRECO_GALAO);
+            //calcula-se o custo total usando preço por lata e galão.
 
             if (preco < menorPreco) {
                 menorPreco = preco;
                 melhorLatas = latas;
                 melhorGaloes = galoes;
+                //Se o preço calculado for menor que o preço mínimo encontrado até então, ele atualiza o preço
+                //e registra a quantidade de latas e galões que resulta nesse preço.
             }
         }
 
@@ -412,5 +440,42 @@ public class Main {
         System.out.println("Quantidade de latas: " + melhorLatas);
         System.out.println("Quantidade de galões: " + melhorGaloes);
         System.out.printf("Preço total: R$ %.2f%n", menorPreco);
+        //usa-se "\n" pra começar uma nova linha de texto.
+
     }
+
+    public static void oMaiorValorDeDois (Scanner scanner) {
+
+        System.out.print("Digite um número: ");
+        double numero1 = scanner.nextDouble();
+
+        System.out.print("Digite um outro número: ");
+        double numero2 = scanner.nextDouble();
+
+        //comparação e impressão do maior número
+        if (numero1 > numero2) {
+            System.out.println("O maior número é: " + numero1);
+        } else if (numero2 > numero1) {
+            System.out.println("O maior número é: " + numero2);
+        }   else {
+            System.out.println("Qual a razão de colocar dois números iguais e querer saber qual o maior deles?");
+        }
+
+    }
+    public static void positivoOuNegativo (Scanner scanner){
+
+        System.out.print("Digite um valor: ");
+        double valor = scanner.nextDouble();
+
+        //Verificando se o valor é positivo, negativo ou zero
+        if (valor >0) {
+            System.out.println("Este número é positivo.");
+        } else if (valor < 0) {
+            System.out.println("Este número é negativo");
+        } else {
+            System.out.println("Então... Isso é Zero, né... Não é positivo nem negativo.");
+        }
+
+    }
+
 }
