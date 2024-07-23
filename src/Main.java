@@ -24,6 +24,7 @@ public class Main {
             System.out.println("15. Calcular a quantidade de latas e galões de tinta necessários por M² e o custo total");
             System.out.println("16. Descobrir qual o maior número dentre os dois digitados");
             System.out.println("17. Este número é positivo ou negativo?");
+            System.out.println("18. Verificador de Feminino ou Masculino");
 
             System.out.println("0.  Sair");
 
@@ -76,10 +77,13 @@ public class Main {
                     calculadoraDeLatasDeTintaEgalao(scanner);
                     break;
                 case 16:
-                    oMaiorValorDeDois (scanner);
+                    oMaiorValorDeDois(scanner);
                     break;
                 case 17:
-                    positivoOuNegativo (scanner);
+                    positivoOuNegativo(scanner);
+                    break;
+                case 18:
+                    verificaSexo(scanner);
                     break;
                 case 0:
                     continuar = false;
@@ -444,7 +448,7 @@ public class Main {
 
     }
 
-    public static void oMaiorValorDeDois (Scanner scanner) {
+    public static void oMaiorValorDeDois(Scanner scanner) {
 
         System.out.print("Digite um número: ");
         double numero1 = scanner.nextDouble();
@@ -457,25 +461,45 @@ public class Main {
             System.out.println("O maior número é: " + numero1);
         } else if (numero2 > numero1) {
             System.out.println("O maior número é: " + numero2);
-        }   else {
+        } else {
             System.out.println("Qual a razão de colocar dois números iguais e querer saber qual o maior deles?");
         }
-
     }
-    public static void positivoOuNegativo (Scanner scanner){
+
+    public static void positivoOuNegativo(Scanner scanner) {
 
         System.out.print("Digite um valor: ");
         double valor = scanner.nextDouble();
 
         //Verificando se o valor é positivo, negativo ou zero
-        if (valor >0) {
+        if (valor > 0) {
             System.out.println("Este número é positivo.");
         } else if (valor < 0) {
             System.out.println("Este número é negativo");
         } else {
             System.out.println("Então... Isso é Zero, né... Não é positivo nem negativo.");
         }
-
     }
 
+    public static void verificaSexo(Scanner scanner) {
+        char sexo;
+        boolean entradaValida = false;
+
+        while (!entradaValida) { // no Java o "!" representa negação.
+            //Usado para garantir que o loop continue executando enquanto a entrada do usuário não for válida.
+
+            System.out.print("Digite o sexo (F para feminino, M para masculino): ");
+            sexo = scanner.next().charAt(0);
+
+            if (sexo == 'F' || sexo == 'f') {
+                System.out.println("Feminino");
+                entradaValida = true;
+            } else if (sexo == 'M' || sexo == 'm') {
+                System.out.println("Masculino");
+                entradaValida = true;
+            } else {
+                System.out.println("Só existem 2 gêneros/sexos e este não é um deles.\nTente novamente.");
+            }
+        }
+    }
 }
