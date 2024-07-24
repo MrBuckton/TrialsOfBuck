@@ -22,9 +22,10 @@ public class Main {
             System.out.println("13. Calcular o salário líquido após descontos de impostos");
             System.out.println("14. Calcular a quantidade de latas de tinta necessárias por M² e o custo total");
             System.out.println("15. Calcular a quantidade de latas e galões de tinta necessários por M² e o custo total");
-            System.out.println("16. Descobrir qual o maior número dentre os dois digitados");
-            System.out.println("17. Este número é positivo ou negativo?");
-            System.out.println("18. Verificador de Feminino ou Masculino");
+            System.out.println("17. Descobrir qual o maior número dentre os dois digitados");
+            System.out.println("18. Este número é positivo ou negativo?");
+            System.out.println("19. Verificador de Feminino ou Masculino");
+            System.out.println("20. Verificador de Vogais");
 
             System.out.println("0.  Sair");
 
@@ -76,14 +77,17 @@ public class Main {
                 case 15:
                     calculadoraDeLatasDeTintaEgalao(scanner);
                     break;
-                case 16:
+                case 17:
                     oMaiorValorDeDois(scanner);
                     break;
-                case 17:
+                case 18:
                     positivoOuNegativo(scanner);
                     break;
-                case 18:
+                case 19:
                     verificaSexo(scanner);
+                    break;
+                case 20:
+                    verificaVogal (scanner);
                     break;
                 case 0:
                     continuar = false;
@@ -500,6 +504,23 @@ public class Main {
             } else {
                 System.out.println("Só existem 2 gêneros/sexos e este não é um deles.\nTente novamente.");
             }
+        }
+    }
+
+    public static void verificaVogal (Scanner scanner) {
+
+        // usuário insere uma letra
+        System.out.print("Digite uma letra: ");
+        char letter = scanner.next().charAt(0);
+
+        // converte a letra pra minúscula
+        letter = Character.toLowerCase(letter);
+
+        // verifica se a letra é vogal
+        if (letter == 'a' || letter == 'e' || letter == 'i' || letter == 'o' || letter == 'u') {
+            System.out.println("A letra " + letter + " é uma vogal.");
+        } else {
+            System.out.println("A letra " + letter + " não é uma vogal.");
         }
     }
 }
